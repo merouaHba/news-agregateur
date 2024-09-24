@@ -7,7 +7,7 @@ import ArticleCard from "../components/ArticleCard";
 import { ThemeStore } from "../context/ThemeProvider";
 
 
-const socket = io("http://localhost:5000");
+const socket = io(import.meta.env.VITE_BASE_URL);
 
 
 

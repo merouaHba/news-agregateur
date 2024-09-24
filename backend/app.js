@@ -58,12 +58,12 @@ app.use(helmet());
     
 // Implement CORS
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    // origin: process.env.FRONTEND_URL,
     credentials: true
 }));
 app.options('*', cors());
 app.use((_,res,next) => {
-    res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
+    // res.header('Access-Control-Allow-Origin', process.env.FRONTEND_URL);
     res.header('Access-Control-Allow-Headers', '*')
     res.header('Access-Control-Allow-Credentials', 'true')
     next()
