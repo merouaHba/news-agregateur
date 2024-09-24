@@ -13,6 +13,7 @@ const authenticateUser = async (req, res, next) => {
     else if (req.signedCookies.token) {
     token = req.signedCookies.token;
 }
+    console.log(token)
     if (!token) {
         throw new CustomError.UnauthenticatedError('Authentication Invalid');
     }
