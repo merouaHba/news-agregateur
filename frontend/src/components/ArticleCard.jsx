@@ -2,7 +2,7 @@
 
 
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineRead, AiOutlineHeart,AiFillHeart } from "react-icons/ai"; // For read icons
 import axios from "../utils/axios";
 import { UserStore } from "../context/userprovider";
@@ -24,6 +24,7 @@ const ArticleCard = ({
   const isFavorite = user ? user.favouriteArticles?.includes(articleId) : false;
   const [readStatus, setReadStatus] = useState(isRead);
   const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
+
 
   const handleMarkAsRead = async () => {
     if (!user) {
