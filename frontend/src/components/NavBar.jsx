@@ -130,7 +130,7 @@ const Navbar = () => {
                 </span>
               ) : user ? (
                 <>
-                  <span className="text-light-text dark:text-dark-text">
+                  <span className="text-light-text dark:text-dark-text mb-2">
                     {user.name}
                   </span>
                   <img
@@ -164,6 +164,7 @@ const Navbar = () => {
             </div>
           </div>
         )}
+
 
         <DarkToggle />
       </div>

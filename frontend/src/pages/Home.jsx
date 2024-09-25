@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { SearchStore } from "../context/SearchProvider";
 import ArticleCard from "../components/ArticleCard";
 import { ThemeStore } from "../context/ThemeProvider";
+import { CategoriesStore } from "../context/CategoriesProvider";
 
 
 const socket = io(import.meta.env.VITE_BASE_URL);
@@ -17,29 +18,12 @@ const listenForNewArticles = (callback) => {
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const {selectedCategories, setSelectedCategories} = useContext(CategoriesStore);
   const { search, setSearch } = useContext(SearchStore);
   const { theme, setTheme } = useContext(ThemeStore);
   const [loading,setLoading] = useState(false)
-  const [loadingCat,setLoadingCat] = useState(false)
 
-const getCategories =async () => {
-  setLoadingCat(true)
-  try {
-    const response = await axios.get(`news/`);
-  const articles = response.data.data
-      const categories = [...new Set(articles.map((article) => article.category))];
-      console.log(categories)
-      setCategories(categories);
-    
-  }  catch (error) {
-      console.error("Error fetching articles:", error);
-    } finally {
-      setLoadingCat(false);
-    }
 
-};
 const getArticles = async () => {
   const categoryQuery = selectedCategories.length > 0 ?`category=${selectedCategories.join(',')}`:''
 const searchQuery = search?`keyword=${search}`:''
@@ -61,7 +45,7 @@ console.log(queryParams)
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getArticles();
-             getCategories();
+
 
       setArticles(data);
       }
@@ -80,41 +64,10 @@ console.log(queryParams)
      });
      setArticles((prev) => [...prev, newArticle]);
    });
-  // Handle category selection
-  const toggleCategory = (category) => {
-    setSelectedCategories((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(category)) {
-        newSet.delete(category);
-      } else {
-        newSet.add(category);
-      }
-      return Array.from(newSet);
-    });
-  };
+
 
   return (
-   <div className="flex">
-      <aside className=" w-1/4 p-4 border-r border-light-background dark:border-dark-background">
-        <h2 className="font-bold mb-4">Categories</h2>
-       {
-        loadingCat?('Loading...'): (categories.map((category) => (
-          <div key={category}>
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes(category)}
-                onChange={() => toggleCategory(category)}
-                className='m-2'
-              />
-              {category}
-            </label>
-          </div>
-        )))
-       }
-      </aside>
-
-      <main className="flex-1 p-6">
+ 
       
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           { loading?('Loading...'):
@@ -122,8 +75,7 @@ console.log(queryParams)
             <ArticleCard key={article.link} {...article} />
           )))}
         </div>
-      </main>
-    </div>
+ 
   );
 };
 

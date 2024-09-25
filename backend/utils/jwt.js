@@ -16,7 +16,7 @@ const attachCookiesToResponse = ({ res, user }) => {
 console.log(token)
   res.cookie('token', token, {
     httpOnly: true,
-    sameSite: 'None',
+    sameSite: process.env.NODE_ENV === 'production'? 'None':'Lax',
     secure: process.env.NODE_ENV === 'production',
     signed:true,
   });
