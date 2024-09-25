@@ -15,7 +15,7 @@ async function fetchNews(io) {
         articles.forEach(async article => {
             const existingArticlelink = await Article.findOne({ link: article.link[0] });
             const existingArticletitle = await Article.findOne({ title: article.title[0] });
-            console.log(article)
+            // console.log(article)
             if (!existingArticlelink && !existingArticletitle) {
                 const newArticle = new Article({
                     title: article.title[0],
