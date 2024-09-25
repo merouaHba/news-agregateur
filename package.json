@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "install": "concurrently \"npm run install-client \" \" npm run install-server\"",
+        "install-server": "cd backend && npm i",
+        "install-client": "cd frontend && yarn",
+        "start": "concurrently \"npm run server\" \"npm run client\"",
+        "server": "cd backend && npm start",
+        "client": "cd frontend && yarn dev "
+    }
+}
