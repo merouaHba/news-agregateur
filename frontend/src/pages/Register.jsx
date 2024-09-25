@@ -31,7 +31,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen ">
+    <div className="flex justify-center items-center min-h-screen bg-light-background dark:bg-dark-background ">
       <div className="bg-light-background dark:bg-dark-background  p-6 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-center">Register</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
@@ -53,10 +53,7 @@ const Register = () => {
             />
           </div>
           <div className="mb-4">
-            <label
-              className="block "
-              htmlFor="name"
-            >
+            <label className="block " htmlFor="name">
               Name
             </label>
             <input
